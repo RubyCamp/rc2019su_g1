@@ -12,6 +12,7 @@ module Result
 
       @timer -= 1
       if @timer <= 0
+        @timer = 3*60
         Scene.move_to(:title)
       end
     end

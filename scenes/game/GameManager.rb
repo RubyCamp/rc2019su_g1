@@ -11,6 +11,8 @@ module Game
 
       @timer -= 1
       if @timer <= 0
+        @timer = 3*60
+        
         Scene.move_to(:result)
       end
     end
