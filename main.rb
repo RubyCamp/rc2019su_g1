@@ -8,7 +8,7 @@ Window.width   = 900
 Window.height  = 650
 
 Scene.move_to(:title)
-
+@@title_font=Font.new(64)
 @@font = Font.new(32)
 
 Window.loop do
