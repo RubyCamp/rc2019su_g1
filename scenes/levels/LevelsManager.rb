@@ -17,7 +17,8 @@ module Levels
       Window.draw_font(200,125,"EASY", @@font)
       Window.draw_font(200,250,"NORMAL", @@font)
       Window.draw_font(200,375,"HARD", @@font)
-      puts x
+      # puts x
+      # いったん消します
       if (x>=150&&x<=350)&&(y>=115&&y<=165)&&Input.mouse_push?(M_LBUTTON)
         Scene.move_to(:game)
       end
