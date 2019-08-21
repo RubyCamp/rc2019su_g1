@@ -6,8 +6,13 @@ module Game
 
     end
 
-    def play
+    def draw
       Window.draw_font(0,0,"ｓｓｓｓ", @@font)
+    end
+
+    def play
+
+      draw
       if Input.keyPush?(K_A)
         Scene.move_to(:result)
       end
