@@ -20,6 +20,9 @@ CSV.foreach("lovetype.csv") do |row|
   @@keys << row
 end
 
+@@failed
+
+
 
 Window.loop do
   break if Input.keyPush?(K_ESCAPE)

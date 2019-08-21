@@ -8,6 +8,8 @@ module Game
       @j = 0
       @i = 0
       @textarray=[]
+      @@failed = 0
+      @pointflag = true
     end
 
     def play
@@ -19,11 +21,29 @@ module Game
         @textLength = @textarray.length
 
         key = Object.const_get("K_"+@textarray[@i].upcase)
-        if Input.keyPush?(key)
-          puts "sucsess!!!!!!!!!!"
+
+        keys = Input.keys
+        if keys.include?(key)
+          # 成功時の処理
+          puts "成功"
           @i += 1
         end
 
+
+          if @pointflag
+            if keys.length > 0
+              if keys.include?(key) == false
+                # タイプ失敗時の処理
+                @@failed += 1
+              end
+            end
+            @pointflag = false
+          end
+
+          if keys.empty?
+            # 押しているキーの配列が空になったらフラグを切り替える
+            @pointflag = true
+          end
 
         if @textLength-1 < @i
           @i=0
@@ -41,6 +61,12 @@ module Game
       Window.draw_font(0,0,"#{@@keys[@j][0]}",@@font)
       Window.draw_font(0,40,"#{@@keys[@j][2]}",@@font)
       Window.draw_font(0,80,"#{@textarray[@i]}",@@font)
+      # 押しているキーの配列の描画
+      # 消してOK
+      Window.draw_font(0,150,"#{Input.keys}",@@font)
+      # 間違った回数の描画
+      # 消してOK
+      Window.draw_font(0,180,"#{@@failed}",@@font)
     end
   end
 end
