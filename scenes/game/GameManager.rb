@@ -10,12 +10,10 @@ module Game
       @textarray=[]
       @@failed = 0
       @pointflag = true
+      Scene.set_val(:start_time, Time.now)
     end
 
     def play
-
-      #Window.draw_font(200,300,"Please Push ENTER", @@font)
-
       if @@keys.length > @j
         @textarray = @@keys[@j][2].split("")
         @textLength = @textarray.length
@@ -51,8 +49,13 @@ module Game
         end
       end
 
-      if @j > @@keys.length-1
+      # ↓仮のIF文
+      if Input.keyPush?(K_W)
+      # if @j > @@keys.length-1
+
+        Scene.scenes[:result].set_end_time
         Scene.move_to(:result)
+
       end
 
     end
@@ -67,6 +70,7 @@ module Game
       # 間違った回数の描画
       # 消してOK
       Window.draw_font(0,180,"#{@@failed}",@@font)
+      
     end
   end
 end

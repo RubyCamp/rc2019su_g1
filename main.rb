@@ -20,7 +20,6 @@ CSV.foreach("lovetype.csv") do |row|
   @@keys << row
 end
 
-@@failed
 
 
 
