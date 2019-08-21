@@ -7,11 +7,15 @@ module Result
     end
 
     def play
-      Window.draw_font(0,0,"ああああ", @@font)
-
       if Input.keyPush?(K_S)
         Scene.move_to(:title)
       end
     end
+
+    def draw
+      Window.draw_font(0,0,"ああああ", @@font)
+    end
+
   end
+
 end

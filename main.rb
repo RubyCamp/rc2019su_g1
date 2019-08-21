@@ -23,7 +23,7 @@ end
 
 Window.loop do
   break if Input.keyPush?(K_ESCAPE)
-
+  Scene.draw
   Scene.play
 
 end

@@ -16,4 +16,9 @@ class Scene
   def self.play
     @@scenes[@@current_scene_name].play
   end
+
+
+  def self.draw
+    @@scenes[@@current_scene_name].draw
+  end
 end
