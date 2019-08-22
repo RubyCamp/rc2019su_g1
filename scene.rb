@@ -43,4 +43,8 @@ class Scene
   def self.scenes
     return @@scenes
   end
+
+  def self.refresh_vals
+    return @@vals = {}
+  end
 end

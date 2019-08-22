@@ -60,6 +60,11 @@ module Game
 
       @anser_font = Font.new(60)
 
+      @answer_word = ""
+
+        # 質問のエフェクトてすと
+      @question_word = ""
+      @questionflag = true
 
       @game_sound=Sound.new("sounds/BGM/stage1.wav")
       @game_sound.loop_count = (-1)
@@ -129,8 +134,8 @@ module Game
         end
       end
 
-      #if @j > @@keys.length-1
-      if Input.keyPush?(K_W)
+      if @j > @@keys.length-1
+      # if Input.keyPush?(K_W)
         @game_sound.stop
         Scene.scenes[:result].get_score(@success,@failed)
         Scene.scenes[:result].set_end_time
@@ -142,12 +147,19 @@ module Game
 
 
 
-
+    def draw_same_scale(image)
+      y = Window.height.to_f / image.height.to_f
+      x = Window.width.to_f / image.width.to_f
+      p y
+      p x
+      Window.draw_scale(0,0,image,x,y,0,0)
+    end
 
 
     def draw
       # ↓めちゃくちゃわかりづらい
-      Window.draw(0,0,@bgimg[@@keys[@j][3].to_i - 1])
+      draw_same_scale(@bgimg[@@keys[@j][3].to_i - 1])
+      # Window.draw(0,0,@bgimg[@@keys[@j][3].to_i - 1])
       Window.draw_box_fill(0,50,800,100,[255, 5, 25, 26])
       # Window.draw_font_ex(20,50,"#{@@keys[@j][0]}",@@font)
 
@@ -194,7 +206,7 @@ module Game
       # Window.draw_font(0,150,"#{Input.keys}",@@font)
       # 間違った回数の描画
       # 消してOK
-      Window.draw_font(0,180,"#{@failed}",@@font)
+      # Window.draw_font(0,180,"#{@failed}",@@font)
 
 
     end

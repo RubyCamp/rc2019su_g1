@@ -67,6 +67,7 @@ module Result
       end
       if Input.keyPush?(K_RETURN)
         @result_sound.stop
+        Scene.scenes[:title].refresh
         Scene.move_to(:title)
       end
     end
