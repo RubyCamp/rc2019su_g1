@@ -134,8 +134,8 @@ module Game
         end
       end
 
-      #if @j > @@keys.length-1
-      if Input.keyPush?(K_W)
+      if @j > @@keys.length-1
+      #if Input.keyPush?(K_W)
         @game_sound.stop
         Scene.scenes[:result].get_score(@success,@failed)
         Scene.scenes[:result].set_end_time
