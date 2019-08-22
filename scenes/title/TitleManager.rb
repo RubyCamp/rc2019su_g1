@@ -78,5 +78,14 @@ module Title
       #プロローグ画面処理
 
     end
+
+    def refresh
+      Scene.add(Title::TitleManager.new,  :title)
+      Scene.add(Game::GameManager.new,  :game)
+      # 先にインスタンス化してしまっている
+      Scene.add(Result::ResultManager.new,  :result)
+      Scene.add(Levels::LevelsManager.new,  :levels)
+      Scene.refresh_vals
+    end
   end
 end
