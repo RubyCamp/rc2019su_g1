@@ -31,8 +31,7 @@ module Game
       @failed_condition = 0
 
       @pointflag = true
-      @se_sound=Sound.new("sounds/SE/typewriter.wav")
-      @se_sound.start = (10000)
+     
 
       @good_voice = [Sound.new("sounds/SE/good.wav"),
                      Sound.new("sounds/SE/success.wav"),
