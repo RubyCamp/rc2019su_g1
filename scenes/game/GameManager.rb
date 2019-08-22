@@ -65,7 +65,6 @@ module Game
         # 質問のエフェクトてすと
       @question_word = ""
       @questionflag = true
-      @questionpos = 0
 
       @game_sound=Sound.new("sounds/BGM/stage1.wav")
       @game_sound.loop_count = (-1)
