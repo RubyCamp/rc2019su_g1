@@ -2,7 +2,9 @@ module Levels
   class LevelsManager
     def initialize    
       @level_img = Image.load("images/background.jpg")
-      @level_sound = Sound.new("sounds/SE/countdown.wav")
+      @count_sound = Sound.new("sounds/SE/countdown.wav")
+      @start_sound = Sound.new("sounds/SE/start.wav")
+
 
       @FONT_SIZE = 64
       @limit_time = 5 
@@ -35,21 +37,22 @@ module Levels
       # puts x
       # いったん消します
       if (x>=150&&x<=350)&&(y>=115&&y<=165)&&Input.mouse_push?(M_LBUTTON)
+        
         countDown()
-        sound_stop()
+        count_sound_stop()
 
         Scene.move_to(:game)
       end
 
       if (x>=150&&x<=350)&&(y>=240&&y<=290)&&Input.mouse_push?(M_LBUTTON)
         countDown()
-        sound_stop()
+        count_sound_stop()
         Scene.move_to(:game)
       end
 
       if (x>=150&&x<=350)&&(y>=365&&y<=415)&&Input.mouse_push?(M_LBUTTON)
         countDown()
-        sound_stop()
+        count_sound_stop()
         Scene.move_to(:game)
       end
 
@@ -58,17 +61,19 @@ module Levels
     def countDown
         @start_time = Time.now
         @font_size = Font.new(250)
-        sound_start()
+        count_sound_play()
         Window.loop do         
           now_time = Time.now        
           diff_time = now_time - @start_time        
           countdown = (@limit_time - diff_time).to_i       
           sec = countdown % 60
           if sec == 1 then
-            sound_stop()
+            count_sound_stop()
             Window.draw_font(200,150,"start",@font_size)
+            start_sound_play()
             
           elsif sec == 0 then
+            start_sound_stop()
             break
           else
             Window.draw_rot(184,150,@box_img,45)
@@ -85,12 +90,23 @@ module Levels
         Input.mouse_y.between?(draw_y, draw_y + @FONT_SIZE)
     end
 
-    def sound_start      
-      @level_sound.play
+    def count_sound_play      
+      @count_sound.play
     end
 
-    def sound_stop
-      @level_sound.stop
+    def count_sound_stop
+      @count_sound.stop
+    end
+
+    def start_sound_play
+      if @on_start.nil?
+        @start_sound.play
+        @on_start = true
+      end
+    end
+
+    def start_sound_stop
+      @start_sound.stop
     end
 
     def draw
