@@ -85,16 +85,19 @@ module Result
       rank_score
       if @rank <= 15      #@rankポイントの数値が多ければAに近くなる
         Window.draw(-20,170,@d_img)
+        Window.draw_font(325,50,"島根のこと全然知らないんだね...\n今日は調子悪かったのかな？？\nまたデートにつれて行ってね(∩´∀｀)∩",@@font,:color=>[0,0,0])
         @rank_alpha = "D"
       elsif @rank <= 25
         Window.draw(-20,170,@c_img)
+        Window.draw_font(325,50,"もっと島根を知ってくれると嬉しいな♪\nまたデートにさそってね!!!（*^_^*）",@@font,:color=>[0,0,0])
         @rank_alpha = "C"
       elsif @rank <= 35
         Window.draw(-20,170,@b_img)
+        Window.draw_font(325,50,"今日はとっても楽しかったよ♪\n次は島根のいいところを探そうね!!!\nまたデートにつれて行ってね(●´ω｀●)",@@font,:color=>[0,0,0])
         @rank_alpha = "B"
       else
         Window.draw(-20,170,@a_img)
-        Window.draw_font(330,50,"やりますなぁ！！！根性ありますやん！！！！",@@font,:color=>[0,0,0])
+        Window.draw_font(325,50,"島根のことめっちゃ知ってるね!!!\n今日はとっても楽しかったよ♪\nまたデートしようね(⋈◍＞◡＜◍)。✧♡",@@font,:color=>[0,0,0])
         @rank_alpha = "A"
       end
 

@@ -26,9 +26,6 @@ module Title
     end
 
     def draw
-      x = Input.mouse_pos_x  # マウスカーソルのx座標
-      y = Input.mouse_pos_y  # マウスカーソルのy座標
-      p x
       Window.draw(0, 0, @title_img)
       Window.draw(0, -50, @titlepop_img)
       Window.draw(-40, @y1, @girl1_img)
