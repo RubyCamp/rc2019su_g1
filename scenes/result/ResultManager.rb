@@ -1,9 +1,8 @@
 module Result
   class ResultManager
     def initialize
-
-      # @bg_img = Image.load("images/background_ending.png")
-
+      @start_time = Scene.get_val(:start_time)
+      @time = 0
     end
 
     def play
@@ -12,10 +11,16 @@ module Result
       end
     end
 
+    def set_end_time
+      @time = Scene.set_val(:end_time, Time.now) - @start_time
+    end
+
     def draw
-      Window.draw_font(0,0,"ああああ", @@font)
+      Window.draw_font(0,0,"#{@time}",@@font)
     end
 
   end
 
 end
+
+# 2週目のtitle画面でボタンを押した瞬間におちる

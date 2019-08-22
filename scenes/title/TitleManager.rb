@@ -8,10 +8,21 @@ module Title
       @y1 = 170
       @y2 = 140
       @p = 0.7
+
+      @title_sound=Sound.new("sounds/BGM/title.wav")
+      @title_sound.loop_count = (-1)
+      @title_soundplaying=false
+
     end
 
     def play
+      if @title_soundplaying == false
+        @title_sound.play
+        @title_soundplaying = true
+      end
+
       if Input.keyPush?(K_RETURN)
+        @title_sound.stop
         Scene.move_to(:levels)
       end
     end
