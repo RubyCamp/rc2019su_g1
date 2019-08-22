@@ -22,3 +22,5 @@ module Result
   end
 
 end
+
+# 2週目のtitle画面でボタンを押した瞬間におちる
