@@ -53,7 +53,10 @@ module Game
         @bgimg << Image.load("images/question/Q#{i}.png")
       end
 
-      @anser_font = Font.new(100)
+      @fukidasi1 = Image.load("images/game/fukidasi1.png")
+      @fukidasi2 = Image.load("images/game/fukidasi2.png")
+
+      @anser_font = Font.new(60)
 
       @answer_word = ""
 
@@ -61,9 +64,18 @@ module Game
       @question_word = ""
       @questionflag = true
       @questionpos = 0
+
+      @game_sound=Sound.new("sounds/BGM/stage1.wav")
+      @game_sound.loop_count = (-1)
+      @game_soundplaying=false
     end
 
     def play
+      if @game_soundplaying == false
+        @game_sound.play
+        @game_soundplaying = true
+      end
+
       if @@keys.length > @j
 
         @textarray = @@keys[@j][2].split("")
@@ -79,7 +91,7 @@ module Game
           @i += 1
         end
 
-        Window.draw_font(300,500,"#{@answer_word}",@anser_font)
+        Window.draw_font(350,450,"#{@answer_word}",@anser_font,:color=>[255, 255, 0, 0])
 
 
 
@@ -123,7 +135,7 @@ module Game
       # ↓仮のIF文
       # if Input.keyPush?(K_W)
       if @j > @@keys.length-1
-
+        @game_sound.stop
         Scene.scenes[:result].set_end_time
         Scene.move_to(:result)
 
@@ -143,10 +155,12 @@ module Game
       # Window.draw_font_ex(20,50,"#{@@keys[@j][0]}",@@font)
 
       if(@failed_condition <= 7)
-        Window.draw(-50,30,@girl[@failed_condition])
+        Window.draw(-50,100,@girl[@failed_condition])
       else
-        Window.draw(-50,30,@girl[7])
+        Window.draw(-50,100,@girl[7])
       end
+
+
 
       # ↓この塊自体はいらなかったら消していい
       if @question_word.empty?
@@ -171,9 +185,9 @@ module Game
         draw_eventually()
       end
 
-
-      Window.draw_font(300,300,"#{@@keys[@j][2]}",@anser_font)
-      Window.draw_font(300,200,"#{@@keys[@j][1]}",@anser_font)
+      Window.draw_scale(120,130,@fukidasi2,0.6,0.8)
+      Window.draw_font(350,350,"#{@@keys[@j][2]}",@anser_font,:color=>[255, 0, 0, 0])
+      Window.draw_font(350,250,"#{@@keys[@j][1]}",@anser_font,:color=>[255, 0, 0, 0])
 
 
 
@@ -190,7 +204,9 @@ module Game
     def draw_eventually
       p [:current,@question_word]
       p Window.fps
-      Window.draw_font(20,50,"#{@question_word}",@@font)
+      # 適当な数だから
+      Window.draw_scale(-170,-20,@fukidasi1,0.7,0.5)
+      Window.draw_font(50,50,"#{@question_word[0,26]}\n#{@question_word[26,26]}",@@font,:color=>[255, 0, 0, 0])
     end
 
 
