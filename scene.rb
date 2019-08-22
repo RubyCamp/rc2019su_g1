@@ -4,6 +4,8 @@ class Scene
   # @@start_time
   # @@end_time
   @@vals = {}
+  @csv = ["lovetype.csv","lovetype_normal.csv","lovetype_hard.csv"]
+  @@keys = []
 
   def self.add(scene_obj, scene_name)
     @@scenes[scene_name.to_sym] = scene_obj
@@ -47,4 +49,16 @@ class Scene
   def self.refresh_vals
     return @@vals = {}
   end
+
+  def self.set_csv(x)
+    @@keys = []
+    CSV.foreach(@csv[x]) do |row|
+      @@keys << row
+    end
+  end
+
+  def self.get_csv
+    @@keys
+  end
+
 end

@@ -13,6 +13,7 @@ module Result
       @result_soundplaying=false
       #初期化しないといけないかもしれない変数
       @license = false
+      @start_time = 0
     end
 
     def set_end_time
