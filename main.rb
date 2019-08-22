@@ -10,6 +10,7 @@ Window.width   = 900
 Window.height  = 650
 
 Scene.move_to(:title)
+@@rank_font=Font.new(120)
 @@title_font=Font.new(64)
 # ↓フォントテスト　"UD デジタル 教科書体 N-B"
 @@font = Font.new(32)

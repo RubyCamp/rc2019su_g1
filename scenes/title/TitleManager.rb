@@ -33,8 +33,8 @@ module Title
       # p x
       # p y
       if @title_soundplaying == false
-        @title_sound.play
-        @title_soundplaying = true
+         @title_sound.play
+         @title_soundplaying = true
       end
       if Input.keyPush?(K_RETURN)
         if @title_flag == true
