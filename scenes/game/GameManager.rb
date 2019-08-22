@@ -60,6 +60,7 @@ module Game
         # 質問のエフェクトてすと
       @question_word = ""
       @questionflag = true
+      @questionpos = 0
     end
 
     def play
@@ -139,7 +140,7 @@ module Game
       # ↓めちゃくちゃわかりづらい
       Window.draw(0,0,@bgimg[@@keys[@j][3].to_i - 1])
       Window.draw_box_fill(0,50,800,100,[255, 5, 25, 26])
-      Window.draw_font_ex(20,50,"#{@@keys[@j][0]}",@@font)
+      # Window.draw_font_ex(20,50,"#{@@keys[@j][0]}",@@font)
 
       if(@failed_condition <= 7)
         Window.draw(-50,30,@girl[@failed_condition])
@@ -148,18 +149,27 @@ module Game
       end
 
       # ↓この塊自体はいらなかったら消していい
-      # if @questionflag
-      #   question_array = @@keys[@j][0].split("")
-      #   question_array.each do |s|
-      #     @question_word << s
-      #     draw_eventually()
-      #     # p @question_word.class
-      #     # p @@keys[@j][2].class
-      #     sleep(0.1)
-      #     p question_array
-      #   end
-      #   @questionflag = false
-      # end
+      if @question_word.empty?
+        @start_time = Time.now
+      end
+      if @questionflag
+        question_array = @@keys[@j][0].split("")
+        p [:time, Time.now, @start_time, @question_word.size]
+        if Time.now > @start_time + 0.1 * @question_word.size
+          @question_word << question_array[@question_word.size]
+        end
+        draw_eventually()
+        # p @question_word.class
+        # p @@keys[@j][2].class
+        #sleep(0.1)
+        p [:all, question_array]
+        if question_array.length <= @question_word.size
+          @questionflag = false
+        end
+      else
+        @question_word = @@keys[@j][0]
+        draw_eventually()
+      end
 
 
       Window.draw_font(300,300,"#{@@keys[@j][2]}",@anser_font)
@@ -178,7 +188,7 @@ module Game
     end
 
     def draw_eventually
-      p @question_word
+      p [:current,@question_word]
       p Window.fps
       Window.draw_font(20,50,"#{@question_word}",@@font)
     end
