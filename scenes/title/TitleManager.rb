@@ -43,7 +43,8 @@ module Title
          @title_flag = true
       end
       if @S == 3 && Input.key_down?(K_RETURN)
-        Scene.move_to(:levels)
+         @title_sound.stop
+         Scene.move_to(:levels)
       end
 
       # if (x>=175&&x<=725)&&(y>=500&&y<=575)&&Input.mouse_push?(M_LBUTTON)
