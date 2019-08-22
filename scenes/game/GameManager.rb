@@ -32,6 +32,7 @@ module Game
 
       @pointflag = true
 
+
       @good_voice = [Sound.new("sounds/SE/good.wav"),
                      Sound.new("sounds/SE/success.wav"),
                      Sound.new("sounds/SE/marvelous.wav"),
