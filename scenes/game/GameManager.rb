@@ -31,7 +31,7 @@ module Game
       @failed_condition = 0
 
       @pointflag = true
-     
+
 
       @good_voice = [Sound.new("sounds/SE/good.wav"),
                      Sound.new("sounds/SE/success.wav"),
@@ -40,7 +40,7 @@ module Game
       @bad_voice = Sound.new("sounds/SE/bad.wav")
 
 
-      Scene.set_val(:start_time, Time.now)
+      # Scene.set_val(:start_time, Time.now)
       @girl = [Image.load("images/chara/girl/girl6.png"),
                Image.load("images/chara/girl/girl1.png"),
                Image.load("images/chara/girl/girl2.png"),
@@ -65,7 +65,6 @@ module Game
         # 質問のエフェクトてすと
       @question_word = ""
       @questionflag = true
-      @questionpos = 0
 
       @game_sound=Sound.new("sounds/BGM/stage1.wav")
       @game_sound.loop_count = (-1)
@@ -85,7 +84,7 @@ module Game
         key = Object.const_get("K_"+@textarray[@i].upcase)
 
         keys = Input.keys
-        if keys.include?(key)
+        if Input.keyPush?(key)
           @se_sound.play
           # 成功時の処理
           @answer_word += @textarray[@i]
@@ -126,7 +125,7 @@ module Game
           else
             @good_voice[rand(4.0)].play
           end
-          @subfailed = @@failed
+          @subfailed = @failed
 
           @failed_condition = 0
 
@@ -135,7 +134,8 @@ module Game
         end
       end
 
-      if @j > @@keys.length-1
+      #if @j > @@keys.length-1
+      if Input.keyPush?(K_W)
         @game_sound.stop
         Scene.scenes[:result].get_score(@success,@failed)
         Scene.scenes[:result].set_end_time
@@ -147,12 +147,19 @@ module Game
 
 
 
-
+    def draw_same_scale(image)
+      y = Window.height.to_f / image.height.to_f
+      x = Window.width.to_f / image.width.to_f
+      #p y
+      #p x
+      Window.draw_scale(0,0,image,x,y,0,0)
+    end
 
 
     def draw
       # ↓めちゃくちゃわかりづらい
-      Window.draw(0,0,@bgimg[@@keys[@j][3].to_i - 1])
+      draw_same_scale(@bgimg[@@keys[@j][3].to_i - 1])
+      # Window.draw(0,0,@bgimg[@@keys[@j][3].to_i - 1])
       Window.draw_box_fill(0,50,800,100,[255, 5, 25, 26])
       # Window.draw_font_ex(20,50,"#{@@keys[@j][0]}",@@font)
 
@@ -170,7 +177,7 @@ module Game
       end
       if @questionflag
         question_array = @@keys[@j][0].split("")
-        p [:time, Time.now, @start_time, @question_word.size]
+        #p [:time, Time.now, @start_time, @question_word.size]
         if Time.now > @start_time + 0.1 * @question_word.size
           @question_word << question_array[@question_word.size]
         end
@@ -178,7 +185,7 @@ module Game
         # p @question_word.class
         # p @@keys[@j][2].class
         #sleep(0.1)
-        p [:all, question_array]
+        #p [:all, question_array]
         if question_array.length <= @question_word.size
           @questionflag = false
         end
@@ -199,14 +206,14 @@ module Game
       # Window.draw_font(0,150,"#{Input.keys}",@@font)
       # 間違った回数の描画
       # 消してOK
-      Window.draw_font(0,180,"#{@failed}",@@font)
+      # Window.draw_font(0,180,"#{@failed}",@@font)
 
 
     end
 
     def draw_eventually
-      p [:current,@question_word]
-      p Window.fps
+      #p [:current,@question_word]
+      #p Window.fps
       # 適当な数だから
       Window.draw_scale(-170,-20,@fukidasi1,0.7,0.5)
       Window.draw_font(50,50,"#{@question_word[0,26]}\n#{@question_word[26,26]}",@@font,:color=>[255, 0, 0, 0])

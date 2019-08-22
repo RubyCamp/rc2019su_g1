@@ -12,12 +12,12 @@ module Result
       @result_sound.loop_count = (-1)
       @result_soundplaying=false
       #初期化しないといけないかもしれない変数
-      @start_time = Scene.get_val(:start_time)
-
+      @license = false
     end
 
     def set_end_time
-      @time= Scene.set_val(:end_time, Time.now) - @start_time
+      @start_time = Scene.get_val(:start_time)
+      @time = Scene.set_val(:end_time, Time.now) - @start_time
     end
 
     def get_score(s,f)
@@ -65,40 +65,55 @@ module Result
           @result_sound.play
           @result_soundplaying = true
       end
+
+      if @license == true && Input.keyPush?(K_RETURN)
+        Scene.scenes[:title].refresh
+        Scene.move_to(:title)
+      end
+
       if Input.keyPush?(K_RETURN)
         @result_sound.stop
-        Scene.move_to(:title)
+        @license = true
       end
     end
 
     def draw
       Window.draw(0,0,@back_ground)
-      Window.draw_scale(-50,-50,@hart_img,0.7,0.7)
-      Window.draw_scale(30,20,@question,0.5,0.9)
-      Window.draw_box_fill(370,290,850,620,[200,200,200])
-      Window.draw_line(370,400,850,400,[0,0,0])
-      Window.draw_line(370,510,850,510,[0,0,0])
-      Window.draw_line(370,620,850,620,[0,0,0])
-      score_point
+      if @license == false
+         Window.draw_scale(-50,-50,@hart_img,0.7,0.7)
+         Window.draw_scale(30,20,@question,0.5,0.9)
+         Window.draw_box_fill(370,290,850,620,[200,200,200])
+         Window.draw_line(370,400,850,400,[0,0,0])
+         Window.draw_line(370,510,850,510,[0,0,0])
+         Window.draw_line(370,620,850,620,[0,0,0])
+         score_point()
 
 
-      rank_score
-      if @rank <= 15      #@rankポイントの数値が多ければAに近くなる
-        Window.draw(-20,170,@d_img)
-        @rank_alpha = "D"
-      elsif @rank <= 25
-        Window.draw(-20,170,@c_img)
-        @rank_alpha = "C"
-      elsif @rank <= 35
-        Window.draw(-20,170,@b_img)
-        @rank_alpha = "B"
-      else
-        Window.draw(-20,170,@a_img)
-        Window.draw_font(330,50,"やりますなぁ！！！根性ありますやん！！！！",@@font,:color=>[0,0,0])
-        @rank_alpha = "A"
+         rank_score()
+         if @rank <= 15      #@rankポイントの数値が多ければAに近くなる
+           Window.draw(-20,170,@d_img)
+           Window.draw_font(325,50,"島根のこと全然知らないんだね...\n今日は調子悪かったのかな？？\nまたデートにつれて行ってね(∩´∀｀)∩",@@font,:color=>[0,0,0])
+           @rank_alpha = "D"
+         elsif @rank <= 25
+           Window.draw(-20,170,@c_img)
+           Window.draw_font(325,50,"もっと島根を知ってくれると嬉しいな♪\nまたデートにさそってね!!!（*^_^*）",@@font,:color=>[0,0,0])
+           @rank_alpha = "C"
+         elsif @rank <= 35
+           Window.draw(-20,170,@b_img)
+           Window.draw_font(325,50,"今日はとっても楽しかったよ♪\n次は島根のいいところを探そうね!!!\nまたデートにつれて行ってね(●´ω｀●)",@@font,:color=>[0,0,0])
+           @rank_alpha = "B"
+         else
+           Window.draw(-20,170,@a_img)
+           Window.draw_font(325,50,"島根のことめっちゃ知ってるね!!!\n今日はとっても楽しかったよ♪\nまたデートしようね(⋈◍＞◡＜◍)。✧♡",@@font,:color=>[0,0,0])
+           @rank_alpha = "A"
+         end
       end
-
-
+      if @license == true
+        Window.draw_font(0,0,"クレジット",@@title_font,:color=>[255,255,255])
+        Window.draw_font(0,100,"開発者\n鈴木俊亮\n日高広夢\n山崎守\n清水旬",@@font,:color=>[255,255,255])
+        Window.draw_font(0,300,"boy素材\n⇒戦時四（http://senji4.uijin.com/）",@@font,:color=>[255,255,255])
+        Window.draw_font(0,430,"girl素材\n⇒作者：らぬき\nURL：http://ranuking.ko-me.com/",@@font,:color=>[255,255,255])
+      end
     end
 
     def score_point
@@ -110,6 +125,8 @@ module Result
         Window.draw_font(720,530,"#{@failed}",@@title_font,:color=>[0,0,0])
         Window.draw_font(115,65,"#{@rank_alpha}",@@rank_font,:color=>[0,0,0])
     end
+
+
   end
 
 end
