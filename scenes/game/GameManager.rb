@@ -40,7 +40,7 @@ module Game
       @bad_voice = Sound.new("sounds/SE/bad.wav")
 
 
-      Scene.set_val(:start_time, Time.now)
+      # Scene.set_val(:start_time, Time.now)
       @girl = [Image.load("images/chara/girl/girl6.png"),
                Image.load("images/chara/girl/girl1.png"),
                Image.load("images/chara/girl/girl2.png"),
@@ -134,8 +134,8 @@ module Game
         end
       end
 
-      if @j > @@keys.length-1
-      # if Input.keyPush?(K_W)
+      #if @j > @@keys.length-1
+      if Input.keyPush?(K_W)
         @game_sound.stop
         Scene.scenes[:result].get_score(@success,@failed)
         Scene.scenes[:result].set_end_time
@@ -150,8 +150,8 @@ module Game
     def draw_same_scale(image)
       y = Window.height.to_f / image.height.to_f
       x = Window.width.to_f / image.width.to_f
-      p y
-      p x
+      #p y
+      #p x
       Window.draw_scale(0,0,image,x,y,0,0)
     end
 
