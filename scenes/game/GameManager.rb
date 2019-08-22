@@ -60,12 +60,6 @@ module Game
 
       @anser_font = Font.new(60)
 
-      @answer_word = ""
-
-        # 質問のエフェクトてすと
-      @question_word = ""
-      @questionflag = true
-      @questionpos = 0
 
       @game_sound=Sound.new("sounds/BGM/stage1.wav")
       @game_sound.loop_count = (-1)
@@ -85,7 +79,7 @@ module Game
         key = Object.const_get("K_"+@textarray[@i].upcase)
 
         keys = Input.keys
-        if keys.include?(key)
+        if Input.keyPush?(key)
           @se_sound.play
           # 成功時の処理
           @answer_word += @textarray[@i]
