@@ -8,6 +8,8 @@ module Game
   class GameManager
     def initialize
 
+      # @csv = ["lovetype.csv","lovetype_hard.csv","lovetype.csv"]
+
       # CSV読み込み
       @@keys = []
       CSV.foreach("lovetype.csv") do |row|
@@ -51,7 +53,8 @@ module Game
                Image.load("images/chara/girl/girl7.png"),]
 
       @bgimg = []
-      for i in 1..@@keys.length do
+      # まつもとさん抜くなら +1はいらない
+      for i in 1..@@keys.length + 1 do
         @bgimg << Image.load("images/question/Q#{i}.png")
       end
 
@@ -72,6 +75,8 @@ module Game
     end
 
     def play
+
+      @@keys = Scene.get_csv
       if @game_soundplaying == false
         @game_sound.play
         @game_soundplaying = true
@@ -134,8 +139,8 @@ module Game
         end
       end
 
-      #if @j > @@keys.length-1
-      if Input.keyPush?(K_W)
+      if @j > @@keys.length-1
+      # if Input.keyPush?(K_W)
         @game_sound.stop
         Scene.scenes[:result].get_score(@success,@failed)
         Scene.scenes[:result].set_end_time

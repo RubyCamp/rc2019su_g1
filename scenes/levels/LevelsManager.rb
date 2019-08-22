@@ -37,10 +37,10 @@ module Levels
       # puts x
       # いったん消します
       if (x>=150&&x<=350)&&(y>=115&&y<=165)&&Input.mouse_push?(M_LBUTTON)
-        
-        countDown()
 
+        countDown()
         count_sound_stop()
+        Scene.set_csv(0)
         Scene.set_val(:start_time, Time.now)
         Scene.move_to(:game)
       end
@@ -49,6 +49,7 @@ module Levels
         countDown()
 
         count_sound_stop()
+        Scene.set_csv(1)
         Scene.set_val(:start_time, Time.now)
         Scene.move_to(:game)
       end
@@ -56,6 +57,7 @@ module Levels
       if (x>=150&&x<=350)&&(y>=365&&y<=415)&&Input.mouse_push?(M_LBUTTON)
         countDown()
         count_sound_stop()
+        Scene.set_csv(2)
         Scene.set_val(:start_time, Time.now)
         Scene.move_to(:game)
       end
@@ -66,16 +68,16 @@ module Levels
         @start_time = Time.now
         @font_size = Font.new(250)
         count_sound_play()
-        Window.loop do         
-          now_time = Time.now        
-          diff_time = now_time - @start_time        
-          countdown = (@limit_time - diff_time).to_i       
+        Window.loop do
+          now_time = Time.now
+          diff_time = now_time - @start_time
+          countdown = (@limit_time - diff_time).to_i
           sec = countdown % 60
           if sec == 1 then
             count_sound_stop()
             Window.draw_font(200,150,"start",@font_size)
             start_sound_play()
-            
+
 
           elsif sec == 0 then
             start_sound_stop()
@@ -95,7 +97,7 @@ module Levels
         Input.mouse_y.between?(draw_y, draw_y + @FONT_SIZE)
     end
 
-    def count_sound_play      
+    def count_sound_play
       @count_sound.play
     end
 
