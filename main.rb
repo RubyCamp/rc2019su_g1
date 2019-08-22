@@ -11,6 +11,7 @@ Window.width   = 900
 Window.height  = 650
 
 Scene.move_to(:title)
+@@rank_font=Font.new(120)
 @@title_font=Font.new(64)
 @@font = Font.new(32)
 

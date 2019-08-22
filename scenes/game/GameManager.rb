@@ -7,8 +7,11 @@ module Game
     def initialize
       @j = 0
       @i = 0
+      @se_sound=Sound.new("sounds/SE/typewriter.wav")
+      @se_sound.start = (100000)
       @textarray=[]
-      @@failed = 0
+      @failed = 0
+      @success = 0
       @pointflag = true
       Scene.set_val(:start_time, Time.now)
     end
@@ -23,8 +26,10 @@ module Game
         keys = Input.keys
         if keys.include?(key)
           # 成功時の処理
+          @se_sound.play
           puts "成功"
           @i += 1
+          @success += 1
         end
 
 
@@ -32,7 +37,7 @@ module Game
             if keys.length > 0
               if keys.include?(key) == false
                 # タイプ失敗時の処理
-                @@failed += 1
+                @failed += 1
               end
             end
             @pointflag = false
@@ -52,7 +57,7 @@ module Game
       # ↓仮のIF文
       if Input.keyPush?(K_W)
       # if @j > @@keys.length-1
-
+        Scene.scenes[:result].get_score(@success,@failed)
         Scene.scenes[:result].set_end_time
         Scene.move_to(:result)
 
@@ -69,8 +74,8 @@ module Game
       Window.draw_font(0,150,"#{Input.keys}",@@font)
       # 間違った回数の描画
       # 消してOK
-      Window.draw_font(0,180,"#{@@failed}",@@font)
-      
+      Window.draw_font(0,180,"#{@failed}",@@font)
+
     end
   end
 end
